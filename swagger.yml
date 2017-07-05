@@ -1,0 +1,149 @@
+swagger: '2.0'
+info:
+  version: "1.0.0"
+  title: curator.io client
+host: api.curator.io
+basePath: /v1
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+securityDefinitions:
+   APIKeyQueryParam:
+     type: apiKey
+     in: query
+     name: api_key
+security:
+  - APIKeyQueryParam: []
+paths:
+  /feeds/{feedId}/posts:
+    get:
+      operationId: listFeedPosts
+      description: |
+        Get collection of Posts for a Feed
+      parameters:
+        -
+          name: feedId
+          in: path
+          description: Feed API Key or Feed Public Key
+          required: true
+          type: string
+        -
+          name: limit
+          in: query
+          description: Limits the number of posts returned - defaults to 25, max is 100
+          required: false
+          type: integer
+        -
+          name: offset
+          in: query
+          description: Page offset - used to paginate through the results
+          required: false
+          type: integer
+        -
+          name: network_id
+          in: query
+          description: Filter by specific Network ID
+          required: false
+          type: integer
+        -
+          name: source_type
+          in: query
+          description: Filter by specific Source Type ID
+          required: false
+          type: integer
+        -
+          name: status
+          in: query
+          description: Filter by specific Post status
+          required: false
+          type: integer
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/ListFeedPostsResponse'
+definitions:
+  FeedPost:
+    type: object
+    properties:
+      id:
+        type: integer
+      network_id:
+        type: integer
+      status:
+        type: integer
+      flagged:
+        type: integer
+        format: boolean
+      has_media:
+        type: integer
+        format: boolean
+      source_type:
+        type: integer
+      source_identifier:
+        type: string
+      source_created_at:
+        type: string
+        format: date-time
+      user_screen_name:
+        type: string
+      user_full_name:
+        type: string
+      user_image:
+        type: string
+      text:
+        type: string
+      image:
+        type: string
+      image_large:
+        type: string
+      video:
+        type: string
+      url:
+        type: string
+      userUrl:
+        type: string
+      thumbnail:
+        type: string
+      video_width:
+        type: integer
+      video_height:
+        type: integer
+      network_name:
+        type: string
+      comments:
+        type: integer
+      views:
+        type: integer
+      likes:
+        type: integer
+      longitude:
+        type: number
+        format: float
+      latitude:
+        type: number
+        format: float
+      location_name:
+        type: string
+      image_width:
+        type: integer
+      image_height:
+        type: integer
+      has_image:
+        type: integer
+        format: boolean
+      has_video:
+        type: integer
+        format: boolean
+  ListFeedPostsResponse:
+    type: object
+    properties:
+      postCount:
+        type: integer
+      posts:
+        type: array
+        items:
+          $ref: '#/definitions/FeedPost'

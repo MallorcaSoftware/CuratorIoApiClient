@@ -1,0 +1,6 @@
+{
+	"modelPackage": "com.mallorcasoftware.curatorioclient.model",
+	"apiPackage": "com.mallorcasoftware.curatorioclient.api",
+	"groupId": "com.mallorcasoftware",
+	"artifactId": "curatorioclient"
+}
